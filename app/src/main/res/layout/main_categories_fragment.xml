@@ -11,6 +11,8 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/main_fragment_horizontal_merging"
+        android:layout_marginEnd="@dimen/main_fragment_horizontal_merging"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />

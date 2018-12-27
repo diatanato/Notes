@@ -9,12 +9,19 @@ import android.widget.TextView;
 
 public class MainCategoriesDataAdapter extends RecyclerView.Adapter<MainCategoriesDataAdapter.ViewHolder>
 {
+    private final int TYPE_GROUP = 0;
+    private final int TYPE_ITEM  = 1;
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int type)
     {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.main_categories_item, parent, false));
+        switch (type)
+        {
+            case TYPE_ITEM:  return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.main_categories_item, parent, false));
+            case TYPE_GROUP: return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.main_categories_group, parent, false));
+        }
+        return null;
     }
 
     @Override
@@ -27,6 +34,37 @@ public class MainCategoriesDataAdapter extends RecyclerView.Adapter<MainCategori
     public int getItemCount()
     {
         return 50;
+    }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        //TODO: забираем тип из коллекции без лишних проверок
+        switch (position)
+        {
+            case 0:
+            case 4:
+                return TYPE_GROUP;
+        }
+        return TYPE_ITEM;
+    }
+
+    class GroupViewHolder extends  ViewHolder
+    {
+
+        GroupViewHolder(View view)
+        {
+            super(view);
+        }
+    }
+
+    class ItemViewHolder extends  ViewHolder
+    {
+
+        ItemViewHolder(View view)
+        {
+            super(view);
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder
