@@ -11,6 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.diatanato.android.notes.data.database.AppDatabase;
+import com.diatanato.android.notes.data.database.Category;
+
 public class MainActivity extends AppCompatActivity
 {
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -49,14 +52,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
+            return true;
+        }
+        if (id == R.id.action_add)
+        {
+            AppDatabase.getInstance(this).getCategoryDao().insert(new Category("Blackdale - Unknown", 0));
             return true;
         }
         return super.onOptionsItemSelected(item);

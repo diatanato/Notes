@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:listitem="@layout/main_categories_item" />
 
 </FrameLayout>

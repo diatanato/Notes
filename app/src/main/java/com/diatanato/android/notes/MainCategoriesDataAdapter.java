@@ -1,6 +1,5 @@
 package com.diatanato.android.notes;
 
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,22 +7,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.diatanato.android.notes.data.database.Category;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainCategoriesDataAdapter extends RecyclerView.Adapter<MainCategoriesDataAdapter.ViewHolder>
 {
     private final int TYPE_ITEM  = 0;
     private final int TYPE_GROUP = 1;
 
-    private Cursor mCursor;
+    private List<Category> mCategories;
 
-    public MainCategoriesDataAdapter(Cursor cursor)
+    public MainCategoriesDataAdapter()
     {
-        mCursor = MergeCursor(cursor);
+        mCategories = new ArrayList<>();
     }
 
-    //TODO: добавляем группы
-    public Cursor MergeCursor(Cursor cursor)
+    public void setData(List<Category> categories)
     {
-        return cursor;
+        mCategories = categories;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -41,26 +45,25 @@ public class MainCategoriesDataAdapter extends RecyclerView.Adapter<MainCategori
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        mCursor.moveToPosition(position);
-        holder.title.setText(mCursor.getString(mCursor.getColumnIndex("name")));
+        holder.title.setText(mCategories.get(position).name);
 
         if (holder.getType() == 0)
         {
-            ((ItemViewHolder)holder).divider.setVisibility(mCursor.moveToNext() && mCursor.getInt(mCursor.getColumnIndex("type")) == 1 ? View.GONE : View.VISIBLE);
+            int next = position + 1;
+            ((ItemViewHolder)holder).divider.setVisibility(mCategories.size() > next && mCategories.get(next).type == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
     @Override
     public int getItemCount()
     {
-        return mCursor.getCount();
+        return mCategories.size();
     }
 
     @Override
     public int getItemViewType(int position)
     {
-        mCursor.moveToPosition(position);
-        return mCursor.getInt(mCursor.getColumnIndex("type"));
+        return mCategories.get(position).type;
     }
 
     class GroupViewHolder extends  ViewHolder
