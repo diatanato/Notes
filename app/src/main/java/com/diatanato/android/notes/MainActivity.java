@@ -58,11 +58,6 @@ public class MainActivity extends AppCompatActivity
         {
             return true;
         }
-        if (id == R.id.action_add)
-        {
-            AppDatabase.getInstance(this).getCategoryDao().insert(new Category("Blackdale - Unknown", 0));
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
