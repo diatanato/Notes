@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".MainCategoriesDialogFragment">
+    tools:context=".MainCollectionsDialogFragment">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -13,14 +12,19 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/category_name"
+            android:id="@+id/collection_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
             android:fontFamily="@font/roboto"
-            android:hint="Введите название категории"
+            android:hint="Введите название коллекции"
             android:inputType="text|textCapSentences|textNoSuggestions"
             android:singleLine="true"
             android:textSize="17sp"
-            tools:text="Mumor Mine - Undeveloped Zone" />
+            tools:text="@string/default_collection_name">
+
+            <requestFocus />
+        </EditText>
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>

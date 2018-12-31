@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 
 import com.diatanato.android.notes.data.database.AppDatabase;
 
+import java.util.List;
+
 public class MainCategoriesFragment extends Fragment
 {
     public static final int action_add = 101;
 
-    private RecyclerView mCategoriesList;
-    private MainCategoriesDialogFragment mDialogFragment;
+    private RecyclerView mCollectionsList;
+    private MainCollectionsDialogFragment mDialogFragment;
 
     public MainCategoriesFragment()
     {
@@ -42,14 +44,14 @@ public class MainCategoriesFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         MainCategoriesDataAdapter adapter = new MainCategoriesDataAdapter();
-        AppDatabase.getInstance(getContext()).getCategoryDao().findAll().observe(this, categories ->
+        AppDatabase.getInstance(getContext()).getCategoryDao().getAll().observe(this, collections ->
         {
-            adapter.setData(categories);
+            adapter.setData(collections);
         });
         setHasOptionsMenu(true);
 
-        mCategoriesList = getView().findViewById(R.id.recyclerview);
-        mCategoriesList.setAdapter(adapter);
+        mCollectionsList = getView().findViewById(R.id.recyclerview);
+        mCollectionsList.setAdapter(adapter);
     }
 
     @Override
@@ -64,21 +66,45 @@ public class MainCategoriesFragment extends Fragment
         switch (item.getItemId())
         {
             case action_add:
-                add();
+                addCollection();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void add()
+    private void addCollection()
     {
         if (mDialogFragment == null)
         {
-            mDialogFragment = new MainCategoriesDialogFragment();
+            mDialogFragment = new MainCollectionsDialogFragment();
         }
         if (mDialogFragment.getTag() == null)
         {
-            mDialogFragment.show(getFragmentManager(), "add_category_dialog");
+            mDialogFragment.setText(getDefaultCollectionName());
+            mDialogFragment.show(getFragmentManager(), "collection-dialog");
         }
+    }
+
+    private void renameCollection()
+    {
+        //TODO: mDialogFragment.setText(имя редактируемой коллекции)
+    }
+
+    @NonNull
+    private String getDefaultCollectionName()
+    {
+        int index = 0;
+        String name = getString(R.string.default_collection_name);
+        List<String> categories = AppDatabase.getInstance(getActivity()).getCategoryDao().findNamesLike(name.substring(0, name.length() - 2) + "%");
+
+        for (int i = 1; i <= categories.size() + 1; i++)
+        {
+            if (!categories.contains(String.format(name, i)))
+            {
+                index = i;
+                break;
+            }
+        }
+        return String.format(name, index);
     }
 }

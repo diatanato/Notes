@@ -11,9 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.diatanato.android.notes.data.database.AppDatabase;
-import com.diatanato.android.notes.data.database.Category;
-
 public class MainActivity extends AppCompatActivity
 {
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -25,17 +22,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity
     public class SectionsPagerAdapter extends FragmentPagerAdapter
     {
 
-        public SectionsPagerAdapter(FragmentManager fm)
+        SectionsPagerAdapter(FragmentManager fm)
         {
             super(fm);
         }

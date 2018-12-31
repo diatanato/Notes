@@ -27,5 +27,8 @@ public interface CategoryDao
     void insertAll(List<Category> categories);
 
     @Query("SELECT * FROM Category")
-    LiveData<List<Category>> findAll();
+    LiveData<List<Category>> getAll();
+
+    @Query("SELECT name FROM Category WHERE name LIKE :category_name")
+    List<String> findNamesLike(String category_name);
 }
