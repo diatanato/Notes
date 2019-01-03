@@ -5,14 +5,14 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class Category
+public class Collection
 {
-    public Category()
+    public Collection()
     {
     }
 
     @Ignore
-    public Category(String name, int type)
+    public Collection(String name, int type)
     {
         this.name = name;
         this.type = type;

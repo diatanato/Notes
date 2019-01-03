@@ -1,9 +1,11 @@
 package com.diatanato.android.notes;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +21,7 @@ public class MainCategoriesFragment extends Fragment
 {
     public static final int action_add = 101;
 
-    private RecyclerView mCollectionsList;
+    private RecyclerView mRecyclerView;
     private MainCollectionsDialogFragment mDialogFragment;
 
     public MainCategoriesFragment()
@@ -29,6 +31,7 @@ public class MainCategoriesFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        Log.d("myLog", "MainCategoriesFragment - onCreate");
         super.onCreate(savedInstanceState);
     }
 
@@ -43,15 +46,19 @@ public class MainCategoriesFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        MainCategoriesDataAdapter adapter = new MainCategoriesDataAdapter();
-        AppDatabase.getInstance(getContext()).getCategoryDao().getAll().observe(this, collections ->
-        {
-            adapter.setData(collections);
-        });
         setHasOptionsMenu(true);
 
-        mCollectionsList = getView().findViewById(R.id.recyclerview);
-        mCollectionsList.setAdapter(adapter);
+        MainCollectionsViewModel model = ViewModelProviders.of(this,
+            new MainCollectionsViewModel.MainCollectionsViewModelFactory(getContext()))
+                .get(MainCollectionsViewModel.class);
+
+        MainCollectionsDataAdapter adapter = new MainCollectionsDataAdapter();
+        model.collections.observe(this, collections ->
+        {
+            adapter.submitList(collections);
+        });
+        mRecyclerView = getView().findViewById(R.id.recyclerview);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override

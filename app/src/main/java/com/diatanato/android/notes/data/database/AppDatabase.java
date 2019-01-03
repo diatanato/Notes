@@ -7,32 +7,31 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Category.class}, version = 1)
+@Database(entities = {Collection.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase
 {
     private static AppDatabase INSTANCE;
 
-    private final static List<Category> CATEGORIES = Arrays.asList(
-        new Category("Фильтры", 1),
-        new Category("Избранное", 0),
-        new Category("Blackdale", 1),
-        new Category("Blackdale - The Speckled Chasm", 0),
-        new Category("Blackdale - The Sapphire Pit", 0),
-        new Category("Blackdale - The Obsidian Trail", 0),
-        new Category("Blackdale - The Cuspate Post", 0),
-        new Category("Mumor Mine", 1),
-        new Category("Mumor Mine - The Great Tunnel", 0),
-        new Category("Mumor Mine - Undeveloped Zone", 0),
-        new Category("Mumor Mine - Operations Area No.5", 0),
-        new Category("Mumor Mine - Mining Zone", 0),
-        new Category("Mumor Mine - Excavation Area", 0)
-    );
+    private final static Collection[] CATEGORIES =
+    {
+        new Collection("Фильтры", 1),
+        new Collection("Избранное", 0),
+        new Collection("Blackdale", 1),
+        new Collection("Blackdale - The Speckled Chasm", 0),
+        new Collection("Blackdale - The Sapphire Pit", 0),
+        new Collection("Blackdale - The Obsidian Trail", 0),
+        new Collection("Blackdale - The Cuspate Post", 0),
+        new Collection("Mumor Mine", 1),
+        new Collection("Mumor Mine - The Great Tunnel", 0),
+        new Collection("Mumor Mine - Undeveloped Zone", 0),
+        new Collection("Mumor Mine - Operations Area No.5", 0),
+        new Collection("Mumor Mine - Mining Zone", 0),
+        new Collection("Mumor Mine - Excavation Area", 0)
+    };
 
-    public abstract CategoryDao getCategoryDao();
+    public abstract CollectionDao getCategoryDao();
 
     public synchronized static AppDatabase getInstance(Context context)
     {

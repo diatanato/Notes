@@ -1,33 +1,44 @@
 package com.diatanato.android.notes;
 
+import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.diatanato.android.notes.data.database.Category;
+import com.diatanato.android.notes.data.database.Collection;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainCategoriesDataAdapter extends RecyclerView.Adapter<MainCategoriesDataAdapter.ViewHolder>
+public class MainCollectionsDataAdapter extends PagedListAdapter<Collection, MainCollectionsDataAdapter.ViewHolder>
 {
+    private static final String TAG = "myLog";
+
     private final int TYPE_ITEM  = 0;
     private final int TYPE_GROUP = 1;
 
-    private List<Category> mCategories;
-
-    public MainCategoriesDataAdapter()
+    private static DiffUtil.ItemCallback<Collection> DIFF_CALLBACK = new DiffUtil.ItemCallback<Collection>()
     {
-        mCategories = new ArrayList<>();
-    }
+        @Override
+        public boolean areItemsTheSame(@NonNull Collection oldCategory, @NonNull Collection newCategory)
+        {
+            return oldCategory.id == newCategory.id;
+        }
 
-    public void setData(List<Category> categories)
+        @Override
+        public boolean areContentsTheSame(@NonNull Collection oldCategory, @NonNull Collection newCategory)
+        {
+            return
+                oldCategory.type == newCategory.type &&
+                oldCategory.name == newCategory.name;
+        }
+    };
+
+    protected MainCollectionsDataAdapter()
     {
-        mCategories = categories;
-        notifyDataSetChanged();
+        super(DIFF_CALLBACK);
     }
 
     @NonNull
@@ -45,25 +56,23 @@ public class MainCategoriesDataAdapter extends RecyclerView.Adapter<MainCategori
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        holder.title.setText(mCategories.get(position).name);
+        Log.d(TAG, "bind, position = " + position);
 
-        if (holder.getType() == 0)
-        {
-            int next = position + 1;
-            ((ItemViewHolder)holder).divider.setVisibility(mCategories.size() > next && mCategories.get(next).type == 0 ? View.VISIBLE : View.GONE);
-        }
-    }
+        //TODO: holder.bind(getItem(position));
 
-    @Override
-    public int getItemCount()
-    {
-        return mCategories.size();
+        holder.title.setText(getItem(position).name);
+
+        //if (holder.getType() == 0)
+        //{
+        //    int next = position + 1;
+        //    ((ItemViewHolder)holder).divider.setVisibility(mCategories.size() > next && mCategories.get(next).type == 0 ? View.VISIBLE : View.GONE);
+        //}
     }
 
     @Override
     public int getItemViewType(int position)
     {
-        return mCategories.get(position).type;
+        return getItem(position).type;
     }
 
     class GroupViewHolder extends  ViewHolder

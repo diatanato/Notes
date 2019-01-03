@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.diatanato.android.notes.data.database.AppDatabase;
-import com.diatanato.android.notes.data.database.Category;
+import com.diatanato.android.notes.data.database.Collection;
 
 public class MainCollectionsDialogFragment extends AppCompatDialogFragment
 {
@@ -82,7 +82,7 @@ public class MainCollectionsDialogFragment extends AppCompatDialogFragment
         mDialog.setButton(Dialog.BUTTON_NEGATIVE,"Отмена", (DialogInterface.OnClickListener) null);
         mDialog.setButton(Dialog.BUTTON_POSITIVE, "Создать", (dialog, id) ->
         {
-            AppDatabase.getInstance(getActivity()).getCategoryDao().insert(new Category(mInputText.getText().toString(), 0));
+            AppDatabase.getInstance(getActivity()).getCategoryDao().insert(new Collection(mInputText.getText().toString(), 0));
         });
         mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         return mDialog;
