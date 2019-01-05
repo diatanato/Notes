@@ -2,7 +2,9 @@
     <string name="app_name" translatable="false">Notes</string>
 
     <!-- Actions -->
-    <string name="action_add">Добавить</string>>
+    <string name="action_add">Добавить</string>
+    <string name="action_edit">Изменить</string>
+    <string name="action_save">Сохранить</string>
     <string name="action_settings">Настройки</string>
 
     <string name="tab_text_notes">Все</string>
@@ -12,4 +14,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Notes Editor-->
+    <string name="notes_editor_content_hint">Примечания</string>
+    <string name="notes_editor_modification">Последнее изменение: %s</string>
+    <string name="notes_editor_no_collection">Нет коллекции</string>
+    <string name="notes_editor_title_hint">Название</string>
 </resources>

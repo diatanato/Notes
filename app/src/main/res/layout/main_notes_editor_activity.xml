@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainNotesEditorActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/main_fragment_horizontal_merging"
+            android:paddingTop="18dp"
+            android:paddingRight="@dimen/main_fragment_horizontal_merging">
+
+            <TextView
+                android:id="@+id/collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fontFamily="@font/roboto"
+                android:text="@string/notes_editor_no_collection"
+                android:textAllCaps="true"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/notes_editor_title_hint"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:targetApi="o" />
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/notes_editor_content_hint"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:textSize="16sp"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/modification_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/roboto"
+                android:textAlignment="viewEnd"
+                android:textSize="12sp"
+                tools:text="Последнее изменение: 12:00" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
