@@ -25,7 +25,7 @@ public class MainCollectionsViewModel extends ViewModel
             .build();
 
         //collections = new LivePagedListBuilder<>(factory, config).build();
-        collections = new LivePagedListBuilder<>(AppDatabase.getInstance(context).getCategoryDao().getCollectionsDataSource(), config).build();
+        collections = new LivePagedListBuilder<>(AppDatabase.getInstance(context).getCategoryDao().getDataSource(), config).build();
     }
 
     public static class MainCollectionsViewModelFactory extends ViewModelProvider.NewInstanceFactory
