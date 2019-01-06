@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.collections;
 
 import android.arch.paging.ItemKeyedDataSource;
 import android.content.Context;
@@ -9,13 +9,13 @@ import com.diatanato.android.notes.data.database.AppDatabase;
 import com.diatanato.android.notes.data.database.Collection;
 import com.diatanato.android.notes.data.database.CollectionDao;
 
-public class MainCollectionsDataSource extends ItemKeyedDataSource<Integer, Collection>
+public class CollectionsDataSource extends ItemKeyedDataSource<Integer, Collection>
 {
     private static final String TAG = "myLog";
 
     private CollectionDao mCollections;
 
-    public MainCollectionsDataSource(Context context)
+    public CollectionsDataSource(Context context)
     {
         mCollections = AppDatabase.getInstance(context).getCategoryDao();
     }

@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.notes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainNotesFragment extends Fragment
-{
-    public MainNotesFragment()
-    {
-    }
+import com.diatanato.android.notes.R;
 
+public class NotesFragment extends Fragment
+{
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -39,7 +37,7 @@ public class MainNotesFragment extends Fragment
 
     public void createNote()
     {
-        Intent intent = new Intent(getActivity(), MainNotesEditorActivity.class);
+        Intent intent = new Intent(getActivity(), NotesEditorActivity.class);
         startActivity(intent);
     }
 }

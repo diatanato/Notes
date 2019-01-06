@@ -1,16 +1,16 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.collections;
 
 import android.arch.paging.DataSource;
 import android.content.Context;
 
 import com.diatanato.android.notes.data.database.Collection;
 
-public class MainCollectionsDataSourceFactory extends DataSource.Factory<Integer, Collection>
+public class CollectionsDataSourceFactory extends DataSource.Factory<Integer, Collection>
 {
     private Context mContext;
-    private MainCollectionsDataSource mCollectionsDataSource;
+    private CollectionsDataSource mCollectionsDataSource;
 
-    public MainCollectionsDataSourceFactory(Context context)
+    public CollectionsDataSourceFactory(Context context)
     {
         mContext = context;
     }
@@ -19,7 +19,7 @@ public class MainCollectionsDataSourceFactory extends DataSource.Factory<Integer
     {
         if(mCollectionsDataSource == null)
         {
-            mCollectionsDataSource = new MainCollectionsDataSource(mContext);
+            mCollectionsDataSource = new CollectionsDataSource(mContext);
         }
         return mCollectionsDataSource;
     }

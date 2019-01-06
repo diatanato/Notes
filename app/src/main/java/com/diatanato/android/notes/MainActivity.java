@@ -11,6 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.diatanato.android.notes.collections.CategoriesFragment;
+import com.diatanato.android.notes.notes.NotesFragment;
+
 public class MainActivity extends AppCompatActivity
 {
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -69,8 +72,8 @@ public class MainActivity extends AppCompatActivity
         {
             switch (position)
             {
-                case 0: return new MainNotesFragment();
-                case 1: return new MainCategoriesFragment();
+                case 0: return new NotesFragment();
+                case 1: return new CategoriesFragment();
             }
             return null;
         }

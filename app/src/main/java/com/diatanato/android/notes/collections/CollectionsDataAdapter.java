@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.collections;
 
 import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
@@ -10,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.diatanato.android.notes.R;
 import com.diatanato.android.notes.data.database.Collection;
 
-public class MainCollectionsDataAdapter extends PagedListAdapter<Collection, MainCollectionsDataAdapter.ViewHolder>
+public class CollectionsDataAdapter extends PagedListAdapter<Collection, CollectionsDataAdapter.ViewHolder>
 {
     private static final String TAG = "myLog";
 
@@ -36,7 +37,7 @@ public class MainCollectionsDataAdapter extends PagedListAdapter<Collection, Mai
         }
     };
 
-    protected MainCollectionsDataAdapter()
+    protected CollectionsDataAdapter()
     {
         super(DIFF_CALLBACK);
     }

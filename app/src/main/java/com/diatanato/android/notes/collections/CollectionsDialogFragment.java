@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.collections;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,10 +13,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.diatanato.android.notes.R;
 import com.diatanato.android.notes.data.database.AppDatabase;
 import com.diatanato.android.notes.data.database.Collection;
 
-public class MainCollectionsDialogFragment extends AppCompatDialogFragment
+public class CollectionsDialogFragment extends AppCompatDialogFragment
 {
     private static final int ERROR_NONE  = 0;
     private static final int ERROR_EXIST = 1;
@@ -28,7 +29,7 @@ public class MainCollectionsDialogFragment extends AppCompatDialogFragment
     private TextInputEditText mInputText;
     private int mError;
 
-    public MainCollectionsDialogFragment()
+    public CollectionsDialogFragment()
     {
         // Required empty public constructor
     }

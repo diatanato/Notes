@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.notes;
 
 import android.app.AlertDialog;
 import android.support.design.widget.Snackbar;
@@ -9,7 +9,10 @@ import android.view.Menu;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainNotesEditorActivity extends SwipeDismissBaseActivity
+import com.diatanato.android.notes.R;
+import com.diatanato.android.notes.base.SwipeDismissBaseActivity;
+
+public class NotesEditorActivity extends SwipeDismissBaseActivity
 {
     private EditText mTitle;
     private EditText mContent;
@@ -56,8 +59,8 @@ public class MainNotesEditorActivity extends SwipeDismissBaseActivity
             new AlertDialog.Builder(this)
                 .setMessage("Сохранить изменения ?")
                 .setNeutralButton(getString(R.string.action_cancel), null)
-                .setNegativeButton(getString(R.string.action_delete), (arg0, arg1) -> MainNotesEditorActivity.super.onBackPressed())
-                .setPositiveButton(getString(R.string.action_save), (arg0, arg1) -> MainNotesEditorActivity.super.onBackPressed())
+                .setNegativeButton(getString(R.string.action_delete), (arg0, arg1) -> NotesEditorActivity.super.onBackPressed())
+                .setPositiveButton(getString(R.string.action_save), (arg0, arg1) -> NotesEditorActivity.super.onBackPressed())
                 .create()
                 .show();
             

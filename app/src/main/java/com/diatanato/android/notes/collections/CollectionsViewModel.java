@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.collections;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
@@ -10,13 +10,13 @@ import android.content.Context;
 import com.diatanato.android.notes.data.database.AppDatabase;
 import com.diatanato.android.notes.data.database.Collection;
 
-public class MainCollectionsViewModel extends ViewModel
+public class CollectionsViewModel extends ViewModel
 {
     public LiveData<PagedList<Collection>> collections;
 
-    public MainCollectionsViewModel(Context context)
+    public CollectionsViewModel(Context context)
     {
-        //MainCollectionsDataSourceFactory factory = new MainCollectionsDataSourceFactory(context);
+        //CollectionsDataSourceFactory factory = new CollectionsDataSourceFactory(context);
 
         PagedList.Config config = new PagedList.Config.Builder()
             .setEnablePlaceholders(true)
@@ -28,11 +28,11 @@ public class MainCollectionsViewModel extends ViewModel
         collections = new LivePagedListBuilder<>(AppDatabase.getInstance(context).getCategoryDao().getDataSource(), config).build();
     }
 
-    public static class MainCollectionsViewModelFactory extends ViewModelProvider.NewInstanceFactory
+    public static class CollectionsViewModelFactory extends ViewModelProvider.NewInstanceFactory
     {
         private Context mContext;
 
-        public MainCollectionsViewModelFactory(Context context)
+        public CollectionsViewModelFactory(Context context)
         {
             mContext = context;
         }
@@ -40,7 +40,7 @@ public class MainCollectionsViewModel extends ViewModel
         @Override
         public <T extends ViewModel> T create(Class<T> viewModel)
         {
-            return (T) new MainCollectionsViewModel(mContext);
+            return (T) new CollectionsViewModel(mContext);
         }
     }
 }

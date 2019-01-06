@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

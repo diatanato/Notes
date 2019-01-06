@@ -1,4 +1,4 @@
-package com.diatanato.android.notes;
+package com.diatanato.android.notes.collections;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -13,20 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.diatanato.android.notes.R;
 import com.diatanato.android.notes.data.database.AppDatabase;
 
 import java.util.List;
 
-public class MainCategoriesFragment extends Fragment
+public class CategoriesFragment extends Fragment
 {
     public static final int action_add = 101;
 
     private RecyclerView mRecyclerView;
-    private MainCollectionsDialogFragment mDialogFragment;
-
-    public MainCategoriesFragment()
-    {
-    }
+    private CollectionsDialogFragment mDialogFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -48,11 +45,11 @@ public class MainCategoriesFragment extends Fragment
 
         setHasOptionsMenu(true);
 
-        MainCollectionsViewModel model = ViewModelProviders.of(this,
-            new MainCollectionsViewModel.MainCollectionsViewModelFactory(getContext()))
-                .get(MainCollectionsViewModel.class);
+        CollectionsViewModel model = ViewModelProviders.of(this,
+            new CollectionsViewModel.CollectionsViewModelFactory(getContext()))
+                .get(CollectionsViewModel.class);
 
-        MainCollectionsDataAdapter adapter = new MainCollectionsDataAdapter();
+        CollectionsDataAdapter adapter = new CollectionsDataAdapter();
         model.collections.observe(this, collections ->
         {
             adapter.submitList(collections);
@@ -83,7 +80,7 @@ public class MainCategoriesFragment extends Fragment
     {
         if (mDialogFragment == null)
         {
-            mDialogFragment = new MainCollectionsDialogFragment();
+            mDialogFragment = new CollectionsDialogFragment();
         }
         if (mDialogFragment.getTag() == null)
         {
