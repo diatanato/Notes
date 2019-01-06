@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Collection.class}, version = 1)
+@Database(entities = {Note.class, Collection.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase
 {
     private static AppDatabase INSTANCE;
@@ -31,6 +31,7 @@ public abstract class AppDatabase extends RoomDatabase
         new Collection("Mumor Mine - Excavation Area", 0)
     };
 
+    public abstract NoteDao       getNoteDao();
     public abstract CollectionDao getCategoryDao();
 
     public synchronized static AppDatabase getInstance(Context context)

@@ -22,7 +22,7 @@ public interface CollectionDao
     void delete(Collection collection);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Collection... collection);
+    void insert(Collection... collections);
 
     @Query("SELECT COUNT(1) FROM Collection WHERE name = :collection_name")
     Boolean isCollectionNameExist(String collection_name);
@@ -34,7 +34,7 @@ public interface CollectionDao
     DataSource.Factory<Integer, Collection> getCollectionsDataSource();
 
     @Query("SELECT * FROM Collection WHERE  id > :id LIMIT :size")
-    public List<Collection> getPageById(int id, int size);
+    List<Collection> getPageById(int id, int size);
 
     @Query("SELECT name FROM Collection WHERE name LIKE :collection_name")
     List<String> findNamesLike(String collection_name);

@@ -15,6 +15,6 @@ public class Note
     public String title;
     public String content;
 
-    public Date dateCreation;
-    public Date dateModification;
+    public Long dateCreation;
+    public Long dateModification;
 }

@@ -79,8 +79,8 @@ public class MainCollectionsDialogFragment extends AppCompatDialogFragment
         mDialog = new AlertDialog.Builder(getActivity()).create();
         mDialog.setView(view);
         mDialog.setMessage("Добавить коллекцию");
-        mDialog.setButton(Dialog.BUTTON_NEGATIVE,"Отмена", (DialogInterface.OnClickListener) null);
-        mDialog.setButton(Dialog.BUTTON_POSITIVE, "Создать", (dialog, id) ->
+        mDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (DialogInterface.OnClickListener) null);
+        mDialog.setButton(Dialog.BUTTON_POSITIVE, getString(R.string.action_create), (dialog, id) ->
         {
             AppDatabase.getInstance(getActivity()).getCategoryDao().insert(new Collection(mInputText.getText().toString(), 0));
         });
