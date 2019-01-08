@@ -30,6 +30,28 @@ public abstract class AppDatabase extends RoomDatabase
         new Collection("Mumor Mine - Mining Zone", 0),
         new Collection("Mumor Mine - Excavation Area", 0)
     };
+    private final static Note[] NOTES =
+    {
+        new Note(),
+        new Note(),
+        new Note("Colère", "Aile de vouivre\nNoyau du sylphe\nOs de voivre"),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note(),
+        new Note()
+    };
 
     public abstract NoteDao       getNoteDao();
     public abstract CollectionDao getCategoryDao();
@@ -47,7 +69,11 @@ public abstract class AppDatabase extends RoomDatabase
                         public void onCreate(@NonNull SupportSQLiteDatabase db)
                         {
                             super.onCreate(db);
-                            Executors.newSingleThreadExecutor().execute(() -> getInstance(context).getCategoryDao().insert(CATEGORIES));
+                            Executors.newSingleThreadExecutor().execute(() ->
+                            {
+                                getInstance(context).getNoteDao().insert(NOTES);
+                                getInstance(context).getCategoryDao().insert(CATEGORIES);
+                            });
                         }
                     })
                     .build();

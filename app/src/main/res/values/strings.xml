@@ -16,8 +16,9 @@
 
     <string name="default_collection_name">Коллекция %d</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Notes Item -->
+    <string name="notes_item_created">Создано: %s</string>
+    <string name="notes_item_modified">Изменено: %s</string>
 
     <!-- Notes Editor-->
     <string name="notes_editor_content_hint">Примечания</string>

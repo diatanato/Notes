@@ -8,4 +8,6 @@
     <color name="colorPrimary">#37474f</color>
     <color name="colorPrimaryDark">#102027</color>
     <color name="colorAccent">#252525</color>
+
+    <color name="divider">#d4d4d4</color>
 </resources>

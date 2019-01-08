@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:padding="4dp"
+    tools:background="#e1e2e1">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="#fafafa"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="1.5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/note_container"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto"
+                    android:singleLine="true"
+                    android:textColor="#252525"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="Blue ancien" />
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="textMultiLine"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="#545454"
+                    android:textSize="15sp"
+                    tools:text="Chair d'archi-démon\nGaz putréfiant\nPatagium de démon" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider"
+                style="@style/Divider"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:id="@+id/date_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="7dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/date_modified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="#8f8f8f"
+                    android:textSize="11sp"
+                    tools:text="Изменено: 1 янв. 1970" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:text=" / "
+                    android:textColor="#8f8f8f"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/date_created"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="#8f8f8f"
+                    android:textSize="11sp"
+                    tools:text="Создано: 1 янв. 1970" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
