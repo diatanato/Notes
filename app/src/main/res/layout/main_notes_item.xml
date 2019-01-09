@@ -13,6 +13,7 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
         card_view:cardBackgroundColor="#fafafa"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="1.5dp">
@@ -50,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto"
-                    android:inputType="textMultiLine"
                     android:lineSpacingExtra="4dp"
                     android:textColor="#545454"
                     android:textSize="15sp"

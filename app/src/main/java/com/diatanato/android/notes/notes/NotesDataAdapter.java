@@ -50,4 +50,16 @@ public class NotesDataAdapter extends PagedListAdapter<Note, NotesViewHolder>
     {
         holder.bind(getItem(position));
     }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull NotesViewHolder holder)
+    {
+        holder.setOnClickListener((view) -> { });
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull NotesViewHolder holder)
+    {
+        holder.setOnClickListener(null);
+    }
 }

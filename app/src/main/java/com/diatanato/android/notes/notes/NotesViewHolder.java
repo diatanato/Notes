@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.view.ViewStub;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.diatanato.android.notes.R;
@@ -17,19 +15,21 @@ class NotesViewHolder extends RecyclerView.ViewHolder
 {
     private Context mContext;
 
+    private View mCard;
+
     private TextView mTitle;
     private TextView mContent;
 
     private TextView mDateCreated;
     private TextView mDateModified;
 
-    private LinearLayout mNoteContainer;
-
     NotesViewHolder(@NonNull View view)
     {
         super(view);
 
         mContext = view.getContext();
+
+        mCard = view.findViewById(R.id.card);
 
         mTitle = view.findViewById(R.id.title);
         mContent = view.findViewById(R.id.content);
@@ -45,6 +45,11 @@ class NotesViewHolder extends RecyclerView.ViewHolder
 
         mDateCreated.setText(mContext.getString(R.string.notes_item_created, getDate(note.dateCreation)));
         mDateModified.setText(mContext.getString(R.string.notes_item_modified, getDate(note.dateModification)));
+    }
+
+    void setOnClickListener(View.OnClickListener listener)
+    {
+        mCard.setOnClickListener(listener);
     }
 
     private String getDate(long date)
