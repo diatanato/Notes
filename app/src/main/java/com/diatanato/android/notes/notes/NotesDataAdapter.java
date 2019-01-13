@@ -6,6 +6,9 @@ import android.support.v7.util.DiffUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
 import com.diatanato.android.notes.R;
 import com.diatanato.android.notes.data.database.Note;
 
@@ -13,6 +16,8 @@ import java.util.Objects;
 
 public class NotesDataAdapter extends PagedListAdapter<Note, NotesViewHolder>
 {
+    private final PublishSubject<Integer> onItemClick = PublishSubject.create();
+
     private static DiffUtil.ItemCallback<Note> DIFF_CALLBACK = new DiffUtil.ItemCallback<Note>()
     {
         @Override
@@ -54,12 +59,20 @@ public class NotesDataAdapter extends PagedListAdapter<Note, NotesViewHolder>
     @Override
     public void onViewAttachedToWindow(@NonNull NotesViewHolder holder)
     {
-        holder.setOnClickListener((view) -> { });
+        holder.setOnClickListener(view ->
+        {
+            onItemClick.onNext(holder.getId());
+        });
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull NotesViewHolder holder)
     {
         holder.setOnClickListener(null);
+    }
+
+    public Observable<Integer> getItemClick()
+    {
+        return onItemClick;
     }
 }

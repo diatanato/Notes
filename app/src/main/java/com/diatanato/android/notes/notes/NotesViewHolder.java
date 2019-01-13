@@ -13,6 +13,8 @@ import com.diatanato.android.notes.data.database.Note;
 
 class NotesViewHolder extends RecyclerView.ViewHolder
 {
+    private int mId;
+
     private Context mContext;
 
     private View mCard;
@@ -40,6 +42,8 @@ class NotesViewHolder extends RecyclerView.ViewHolder
 
     void bind(Note note)
     {
+        mId = note.id;
+
         mTitle.setText(note.title);
         mContent.setText(note.content);
 
@@ -50,6 +54,11 @@ class NotesViewHolder extends RecyclerView.ViewHolder
     void setOnClickListener(View.OnClickListener listener)
     {
         mCard.setOnClickListener(listener);
+    }
+
+    public int getId()
+    {
+        return mId;
     }
 
     private String getDate(long date)

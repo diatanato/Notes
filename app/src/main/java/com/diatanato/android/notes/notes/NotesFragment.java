@@ -35,8 +35,9 @@ public class NotesFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        NotesViewModel model = ViewModelProviders.of(this,
-                new NotesViewModel.NotesViewModelFactory(getContext()))
+        NotesViewModel model =
+            ViewModelProviders
+                .of(this, new NotesViewModel.Factory(getContext()))
                 .get(NotesViewModel.class);
 
         NotesDataAdapter adapter = new NotesDataAdapter();
@@ -45,6 +46,8 @@ public class NotesFragment extends Fragment
         mRecyclerView = getView().findViewById(R.id.recyclerview);
         mRecyclerView.setAdapter(adapter);
 
+        adapter.getItemClick().subscribe(id -> editNote(id));
+
         FloatingActionButton fab = getView().findViewById(R.id.fab);
         fab.setOnClickListener(view -> createNote());
     }
@@ -52,6 +55,13 @@ public class NotesFragment extends Fragment
     public void createNote()
     {
         Intent intent = new Intent(getActivity(), NotesEditorActivity.class);
+        startActivity(intent);
+    }
+
+    public void editNote(int id)
+    {
+        Intent intent = new Intent(getActivity(), NotesEditorActivity.class);
+        intent.putExtra(NotesEditorActivity.EXTRA_NOTE_ID, id);
         startActivity(intent);
     }
 }

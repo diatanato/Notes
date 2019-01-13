@@ -2,7 +2,7 @@ package com.diatanato.android.notes.notes;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProvider.NewInstanceFactory;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 import android.content.Context;
@@ -15,7 +15,7 @@ public class NotesViewModel extends ViewModel
 {
     public LiveData<PagedList<Note>> notes;
 
-    public NotesViewModel(Context context)
+    private NotesViewModel(Context context)
     {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(true)
@@ -26,18 +26,18 @@ public class NotesViewModel extends ViewModel
         notes = new LivePagedListBuilder<>(AppDatabase.getInstance(context).getNoteDao().getDataSource(), config).build();
     }
 
-    public static class NotesViewModelFactory extends ViewModelProvider.NewInstanceFactory
+    public static class Factory extends NewInstanceFactory
     {
         private Context mContext;
 
-        public NotesViewModelFactory(Context context)
+        Factory(Context context)
         {
             mContext = context;
         }
 
         @NonNull
         @Override
-        public <T extends ViewModel> T create(Class<T> viewModel)
+        public <T extends ViewModel> T create(@NonNull Class<T> model)
         {
             return (T) new NotesViewModel(mContext);
         }

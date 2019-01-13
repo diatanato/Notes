@@ -1,6 +1,7 @@
 package com.diatanato.android.notes.notes;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,12 +12,23 @@ import android.widget.TextView;
 
 import com.diatanato.android.notes.R;
 import com.diatanato.android.notes.base.SwipeDismissBaseActivity;
+import com.diatanato.android.notes.data.database.AppDatabase;
 
 public class NotesEditorActivity extends SwipeDismissBaseActivity
 {
+    public final static String EXTRA_NOTE_ID = "id";
+
     private EditText mTitle;
     private EditText mContent;
     private TextView mCollection;
+
+    private NotesEditorViewModel mModel;
+
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,8 +46,25 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         mContent = findViewById(R.id.content);
         mCollection = findViewById(R.id.collection);
 
-        mCollection.setOnClickListener(view -> Snackbar.make(view, "go to collection fragment", Snackbar.LENGTH_LONG).show());
+        //TODO: открываем список коллекций для выбора существующей или создания новой
+        mCollection.setOnClickListener(view ->
+        {
+            Snackbar.make(view, "go to collection fragment", Snackbar.LENGTH_LONG).show();
+        });
+        mModel =
+            ViewModelProviders
+                .of(this, new NotesEditorViewModel.Factory(this, getIntent().getIntExtra(EXTRA_NOTE_ID, 0)))
+                .get(NotesEditorViewModel.class);
+
+        mTitle.setText(mModel.note.title);
+        mContent.setText(mModel.note.content);
     }
+
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -44,6 +73,12 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         return true;
     }
 
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
     @Override
     public boolean onSupportNavigateUp()
     {
@@ -51,16 +86,22 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         return true;
     }
 
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
     @Override
     public void onBackPressed()
     {
-        if (!isNoteEmpty() && isNoteChanged())
+        if (isChanged())
         {
             new AlertDialog.Builder(this)
                 .setMessage("Сохранить изменения ?")
                 .setNeutralButton(getString(R.string.action_cancel), null)
-                .setNegativeButton(getString(R.string.action_delete), (arg0, arg1) -> NotesEditorActivity.super.onBackPressed())
-                .setPositiveButton(getString(R.string.action_save), (arg0, arg1) -> NotesEditorActivity.super.onBackPressed())
+                .setNegativeButton(getString(R.string.action_delete), (arg0, arg1) -> super.onBackPressed())
+                .setPositiveButton(getString(R.string.action_save), (arg0, arg1) -> save())
                 .create()
                 .show();
             
@@ -69,21 +110,56 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         super.onBackPressed();
     }
 
-    private boolean isNoteEmpty()
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
+    private void  save()
     {
-        if (mTitle != null && !TextUtils.isEmpty(mTitle.getText()))
+        mModel.note.title = mTitle.getText().toString();
+        mModel.note.content = mContent.getText().toString();
+        mModel.note.dateModification = System.currentTimeMillis();
+
+        if (mModel.note.id > 0)
         {
-            return false;
+            if (isEmpty())
+            {
+                AppDatabase.getInstance(this).getNoteDao().delete(mModel.note);
+            }
+            else
+            {
+                AppDatabase.getInstance(this).getNoteDao().update(mModel.note);
+            }
         }
-        if (mContent != null && !TextUtils.isEmpty(mContent.getText()))
+        else
         {
-            return false;
+            mModel.note.dateCreation = mModel.note.dateModification;
+            AppDatabase.getInstance(this).getNoteDao().insert(mModel.note);
         }
-        return true;
+        super.onBackPressed();
     }
 
-    private boolean isNoteChanged()
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
+    private boolean isEmpty()
     {
-        return !isNoteEmpty(); //TODO
+        return TextUtils.isEmpty(mTitle.getText()) && TextUtils.isEmpty(mContent.getText());
+    }
+
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
+    private boolean isChanged()
+    {
+        return !(TextUtils.equals(mTitle.getText(), mModel.note.title) && TextUtils.equals(mContent.getText(), mModel.note.content));
     }
 }
