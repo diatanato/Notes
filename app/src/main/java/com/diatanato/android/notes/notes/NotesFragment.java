@@ -35,10 +35,7 @@ public class NotesFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        NotesViewModel model =
-            ViewModelProviders
-                .of(this, new NotesViewModel.Factory(getContext()))
-                .get(NotesViewModel.class);
+        NotesViewModel model = ViewModelProviders.of(this).get(NotesViewModel.class);
 
         NotesDataAdapter adapter = new NotesDataAdapter();
         model.notes.observe(this, adapter::submitList);

@@ -45,9 +45,7 @@ public class CategoriesFragment extends Fragment
 
         setHasOptionsMenu(true);
 
-        CollectionsViewModel model = ViewModelProviders.of(this,
-            new CollectionsViewModel.CollectionsViewModelFactory(getContext()))
-                .get(CollectionsViewModel.class);
+        CollectionsViewModel model = ViewModelProviders.of(this).get(CollectionsViewModel.class);
 
         CollectionsDataAdapter adapter = new CollectionsDataAdapter();
         model.collections.observe(this, collections ->
