@@ -22,7 +22,7 @@
 
     <!-- Notes Editor-->
     <string name="notes_editor_content_hint">Примечания</string>
-    <string name="notes_editor_modification">Последнее изменение: %s</string>
+    <string name="notes_editor_last_modification">Последнее изменение: %s</string>
     <string name="notes_editor_no_collection">Нет коллекции</string>
     <string name="notes_editor_title_hint">Название</string>
 </resources>

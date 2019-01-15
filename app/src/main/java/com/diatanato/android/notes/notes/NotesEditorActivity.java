@@ -6,7 +6,10 @@ import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.view.Menu;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
     private EditText mTitle;
     private EditText mContent;
     private TextView mCollection;
+    private TextView mModificationDate;
 
     private NotesEditorViewModel mModel;
 
@@ -45,6 +49,7 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         mTitle = findViewById(R.id.title);
         mContent = findViewById(R.id.content);
         mCollection = findViewById(R.id.collection);
+        mModificationDate = findViewById(R.id.modification_date);
 
         //TODO: открываем список коллекций для выбора существующей или создания новой
         mCollection.setOnClickListener(view ->
@@ -58,6 +63,11 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
 
         mTitle.setText(mModel.note.title);
         mContent.setText(mModel.note.content);
+
+        if (mModel.note.dateModification > 0)
+        {
+            mModificationDate.setText(getString(R.string.notes_editor_last_modification, getDate(mModel.note.dateModification)));
+        }
     }
 
     /************************************************************************
@@ -161,5 +171,20 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
     private boolean isChanged()
     {
         return !(TextUtils.equals(mTitle.getText(), mModel.note.title) && TextUtils.equals(mContent.getText(), mModel.note.content));
+    }
+
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
+    private String getDate(long date)
+    {
+        if (DateUtils.isToday(date))
+        {
+            return DateFormat.getTimeFormat(this).format(date);
+        }
+        return DateFormat.getMediumDateFormat(this).format(date);
     }
 }
