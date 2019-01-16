@@ -2,7 +2,7 @@ package com.diatanato.android.notes.notes;
 
 import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.design.widget.Snackbar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.diatanato.android.notes.R;
 import com.diatanato.android.notes.base.SwipeDismissBaseActivity;
+import com.diatanato.android.notes.collections.CollectionsSelectorActivity;
 import com.diatanato.android.notes.data.database.AppDatabase;
 
 public class NotesEditorActivity extends SwipeDismissBaseActivity
@@ -54,7 +55,8 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         //TODO: открываем список коллекций для выбора существующей или создания новой
         mCollection.setOnClickListener(view ->
         {
-            Snackbar.make(view, "go to collection fragment", Snackbar.LENGTH_LONG).show();
+            Intent intent = new Intent(this, CollectionsSelectorActivity.class);
+            startActivity(intent);
         });
         mModel =
             ViewModelProviders
