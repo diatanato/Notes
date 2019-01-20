@@ -11,7 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.diatanato.android.notes.collections.CategoriesFragment;
+import com.diatanato.android.notes.collections.CollectionsFragment;
 import com.diatanato.android.notes.notes.NotesFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
             switch (position)
             {
                 case 0: return new NotesFragment();
-                case 1: return new CategoriesFragment();
+                case 1: return new CollectionsFragment();
             }
             return null;
         }

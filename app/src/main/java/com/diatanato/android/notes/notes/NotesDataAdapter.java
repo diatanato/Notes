@@ -10,7 +10,7 @@ import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 import com.diatanato.android.notes.R;
-import com.diatanato.android.notes.data.database.Note;
+import com.diatanato.android.notes.database.entities.Note;
 
 import java.util.Objects;
 
@@ -38,7 +38,7 @@ public class NotesDataAdapter extends PagedListAdapter<Note, NotesViewHolder>
         }
     };
 
-    public NotesDataAdapter()
+    NotesDataAdapter()
     {
         super(DIFF_CALLBACK);
     }
@@ -59,10 +59,7 @@ public class NotesDataAdapter extends PagedListAdapter<Note, NotesViewHolder>
     @Override
     public void onViewAttachedToWindow(@NonNull NotesViewHolder holder)
     {
-        holder.setOnClickListener(view ->
-        {
-            onItemClick.onNext(holder.getId());
-        });
+        holder.setOnClickListener(view -> onItemClick.onNext(holder.getId()));
     }
 
     @Override
@@ -71,7 +68,7 @@ public class NotesDataAdapter extends PagedListAdapter<Note, NotesViewHolder>
         holder.setOnClickListener(null);
     }
 
-    public Observable<Integer> getItemClick()
+    Observable<Integer> getItemClick()
     {
         return onItemClick;
     }

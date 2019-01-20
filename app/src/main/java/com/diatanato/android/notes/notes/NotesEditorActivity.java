@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 import com.diatanato.android.notes.R;
 import com.diatanato.android.notes.base.SwipeDismissBaseActivity;
 import com.diatanato.android.notes.collections.CollectionsSelectorActivity;
-import com.diatanato.android.notes.data.database.AppDatabase;
+import com.diatanato.android.notes.database.AppDatabase;
 
 public class NotesEditorActivity extends SwipeDismissBaseActivity
 {
@@ -52,16 +54,18 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         mCollection = findViewById(R.id.collection);
         mModificationDate = findViewById(R.id.modification_date);
 
-        //TODO: открываем список коллекций для выбора существующей или создания новой
-        mCollection.setOnClickListener(view ->
-        {
-            Intent intent = new Intent(this, CollectionsSelectorActivity.class);
-            startActivity(intent);
-        });
         mModel =
             ViewModelProviders
                 .of(this, new NotesEditorViewModel.Factory(this, getIntent().getIntExtra(EXTRA_NOTE_ID, 0)))
                 .get(NotesEditorViewModel.class);
+
+        mCollection.setOnClickListener(view ->
+        {
+            Intent intent = new Intent(this, CollectionsSelectorActivity.class);
+            intent.putExtra(CollectionsSelectorActivity.EXTRA_COLLECTION_ID, mModel.note.collection);
+            startActivityForResult(intent, 1);
+        });
+        setCollectionName();
 
         mTitle.setText(mModel.note.title);
         mContent.setText(mModel.note.content);
@@ -105,6 +109,33 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
     ************************************************************************/
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode)
+        {
+            case 1:
+            {
+                //if (resultCode != -1)
+                //{
+                //    mModel.collection = data.getStringExtra("");
+                //    mModel.note.collection = data.getIntExtra("", 0);
+                //
+                //    setCollectionName();
+                //    AppDatabase.getInstance(this).getNoteDao().update(mModel.note);
+                //}
+            }
+        }
+    }
+
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
+    @Override
     public void onBackPressed()
     {
         if (isChanged())
@@ -128,7 +159,25 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
     *                                                                       *
     ************************************************************************/
 
-    private void  save()
+    private void setCollectionName()
+    {
+        if (mModel.collection != null)
+        {
+            mCollection.setText(mModel.collection);
+        }
+        else
+        {
+            mCollection.setText(R.string.notes_editor_no_collection);
+        }
+    }
+
+    /************************************************************************
+    *                                                                       *
+    *                                                                       *
+    *                                                                       *
+    ************************************************************************/
+
+    private void save()
     {
         mModel.note.title = mTitle.getText().toString();
         mModel.note.content = mContent.getText().toString();
@@ -147,7 +196,9 @@ public class NotesEditorActivity extends SwipeDismissBaseActivity
         }
         else
         {
+            mModel.note.collection = 4;
             mModel.note.dateCreation = mModel.note.dateModification;
+
             AppDatabase.getInstance(this).getNoteDao().insert(mModel.note);
         }
         super.onBackPressed();

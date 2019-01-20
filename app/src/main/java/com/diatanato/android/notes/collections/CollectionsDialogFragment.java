@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.diatanato.android.notes.R;
-import com.diatanato.android.notes.data.database.AppDatabase;
-import com.diatanato.android.notes.data.database.Collection;
+import com.diatanato.android.notes.database.AppDatabase;
+import com.diatanato.android.notes.database.entities.Collection;
 
 public class CollectionsDialogFragment extends AppCompatDialogFragment
 {
@@ -43,7 +43,7 @@ public class CollectionsDialogFragment extends AppCompatDialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.main_categories_dialog_fragment, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.collections_dialog_fragment, null);
         mInputText  = view.findViewById(R.id.input_text);
         mInputError = view.findViewById(R.id.input_error);
 

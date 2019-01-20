@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.diatanato.android.notes.R;
-import com.diatanato.android.notes.data.database.Note;
+import com.diatanato.android.notes.database.entities.Note;
 
 class NotesViewHolder extends RecyclerView.ViewHolder
 {

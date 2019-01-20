@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/main_fragment_horizontal_merging"
-    android:layout_marginRight="@dimen/main_fragment_horizontal_merging"
-    android:orientation="vertical">
 
-    <FrameLayout
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="6dp"
-        android:paddingTop="13dp"
-        android:paddingRight="6dp"
-        android:paddingBottom="13dp">
+        android:layout_marginLeft="@dimen/main_fragment_horizontal_merging"
+        android:layout_marginRight="@dimen/main_fragment_horizontal_merging"
+
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:fontFamily="@font/roboto"
             android:textColor="#252525"
             android:textSize="17sp"
             tools:text="Категория" />
 
-    </FrameLayout>
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider" />
 
-    <View
-        android:id="@+id/divider"
-        style="@style/Divider" />
+    </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

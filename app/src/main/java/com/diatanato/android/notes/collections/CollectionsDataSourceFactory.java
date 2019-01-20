@@ -3,7 +3,7 @@ package com.diatanato.android.notes.collections;
 import android.arch.paging.DataSource;
 import android.content.Context;
 
-import com.diatanato.android.notes.data.database.Collection;
+import com.diatanato.android.notes.database.entities.Collection;
 
 public class CollectionsDataSourceFactory extends DataSource.Factory<Integer, Collection>
 {

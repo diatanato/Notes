@@ -1,4 +1,4 @@
-package com.diatanato.android.notes.data.database;
+package com.diatanato.android.notes.database;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -6,6 +6,11 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
+
+import com.diatanato.android.notes.database.dao.CollectionDao;
+import com.diatanato.android.notes.database.dao.NoteDao;
+import com.diatanato.android.notes.database.entities.Collection;
+import com.diatanato.android.notes.database.entities.Note;
 
 import java.util.concurrent.Executors;
 
@@ -31,7 +36,7 @@ public abstract class AppDatabase extends RoomDatabase
         new Collection("Mumor Mine - Excavation Area", 0)
     };
 
-    public abstract NoteDao       getNoteDao();
+    public abstract NoteDao getNoteDao();
     public abstract CollectionDao getCategoryDao();
 
     public synchronized static AppDatabase getInstance(Context context)

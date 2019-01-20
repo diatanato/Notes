@@ -1,10 +1,13 @@
-package com.diatanato.android.notes.data.database;
+package com.diatanato.android.notes.database.dao;
 
 import android.arch.lifecycle.LiveData;
 
 import android.arch.paging.DataSource;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
+
+import com.diatanato.android.notes.database.entities.Collection;
+import com.diatanato.android.notes.database.models.CollectionWithNotes;
 
 import java.util.List;
 

@@ -5,9 +5,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.diatanato.android.notes.data.database.AppDatabase;
-import com.diatanato.android.notes.data.database.Collection;
-import com.diatanato.android.notes.data.database.CollectionDao;
+import com.diatanato.android.notes.database.AppDatabase;
+import com.diatanato.android.notes.database.dao.CollectionDao;
+import com.diatanato.android.notes.database.entities.Collection;
 
 public class CollectionsDataSource extends ItemKeyedDataSource<Integer, Collection>
 {

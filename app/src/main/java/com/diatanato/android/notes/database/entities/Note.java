@@ -1,4 +1,4 @@
-package com.diatanato.android.notes.data.database;
+package com.diatanato.android.notes.database.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;

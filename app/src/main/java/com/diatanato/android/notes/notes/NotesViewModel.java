@@ -7,8 +7,8 @@ import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
 
-import com.diatanato.android.notes.data.database.AppDatabase;
-import com.diatanato.android.notes.data.database.Note;
+import com.diatanato.android.notes.database.AppDatabase;
+import com.diatanato.android.notes.database.entities.Note;
 
 public class NotesViewModel extends AndroidViewModel
 {

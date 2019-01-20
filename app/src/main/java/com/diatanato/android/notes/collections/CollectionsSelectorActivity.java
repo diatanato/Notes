@@ -8,6 +8,8 @@ import com.diatanato.android.notes.base.SwipeDismissBaseActivity;
 
 public class CollectionsSelectorActivity extends SwipeDismissBaseActivity
 {
+    public static final String EXTRA_COLLECTION_ID = "collection_id";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -19,6 +21,11 @@ public class CollectionsSelectorActivity extends SwipeDismissBaseActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        getSupportFragmentManager()
+            .beginTransaction()
+            .add(R.id.fragment, CollectionsFragment.newInstance(getIntent().getIntExtra(EXTRA_COLLECTION_ID, 0)))
+            .commit();
     }
 
     @Override

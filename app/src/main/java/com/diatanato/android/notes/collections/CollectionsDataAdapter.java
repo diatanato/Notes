@@ -1,7 +1,9 @@
 package com.diatanato.android.notes.collections;
 
+import android.annotation.SuppressLint;
 import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,116 +13,70 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.diatanato.android.notes.R;
-import com.diatanato.android.notes.data.database.Collection;
+import com.diatanato.android.notes.database.entities.Collection;
 
-public class CollectionsDataAdapter extends PagedListAdapter<Collection, CollectionsDataAdapter.ViewHolder>
+import java.util.Objects;
+
+public class CollectionsDataAdapter extends PagedListAdapter<Collection, CollectionsViewHolder>
 {
-    private static final String TAG = "myLog";
-
     private final int TYPE_ITEM  = 0;
     private final int TYPE_GROUP = 1;
+
+    private OnCollectionBind mListener;
 
     private static DiffUtil.ItemCallback<Collection> DIFF_CALLBACK = new DiffUtil.ItemCallback<Collection>()
     {
         @Override
-        public boolean areItemsTheSame(@NonNull Collection oldCategory, @NonNull Collection newCategory)
+        public boolean areItemsTheSame(@NonNull Collection a, @NonNull Collection b)
         {
-            return oldCategory.id == newCategory.id;
+            return a.id == b.id;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Collection oldCategory, @NonNull Collection newCategory)
+        public boolean areContentsTheSame(@NonNull Collection a, @NonNull Collection b)
         {
             return
-                oldCategory.type == newCategory.type &&
-                oldCategory.name == newCategory.name;
+                a.type == b.type &&
+                Objects.equals(a.name, b.name);
         }
     };
 
-    protected CollectionsDataAdapter()
+    CollectionsDataAdapter(OnCollectionBind listener)
     {
         super(DIFF_CALLBACK);
+
+        mListener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int type)
+    public CollectionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int type)
     {
         switch (type)
         {
-            case TYPE_ITEM: return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.main_categories_item, parent, false));
-            case TYPE_GROUP: return new GroupViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.main_categories_group, parent, false));
+            case TYPE_ITEM: return new CollectionsItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.collections_item, parent, false));
+            case TYPE_GROUP: return new CollectionsGroupViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.collections_group, parent, false));
         }
         return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull CollectionsViewHolder holder, int position)
     {
-        Log.d(TAG, "bind, position = " + position);
+        holder.bind(getItem(position));
 
-        //TODO: holder.bind(getItem(position));
+        if (holder.getType() == 0)
+        {
+            //int next = position + 1;
+            //(ItemViewHolder)holder).divider.setVisibility(mCategories.size() > next && mCategories.get(next).type == 0 ? View.VISIBLE : View.GONE);
 
-        holder.title.setText(getItem(position).name);
-
-        //if (holder.getType() == 0)
-        //{
-        //    int next = position + 1;
-        //    ((ItemViewHolder)holder).divider.setVisibility(mCategories.size() > next && mCategories.get(next).type == 0 ? View.VISIBLE : View.GONE);
-        //}
+            mListener.onCollectionBind((CollectionsItemViewHolder)holder);
+        }
     }
 
     @Override
     public int getItemViewType(int position)
     {
         return getItem(position).type;
-    }
-
-    class GroupViewHolder extends  ViewHolder
-    {
-
-        GroupViewHolder(View view)
-        {
-            super(view);
-        }
-
-        @Override
-        public int getType()
-        {
-            return 1;
-        }
-    }
-
-    class ItemViewHolder extends  ViewHolder
-    {
-        final View divider;
-
-        ItemViewHolder(View view)
-        {
-            super(view);
-            divider = view.findViewById(R.id.divider);
-        }
-
-        @Override
-        public int getType()
-        {
-            return 0;
-        }
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder
-    {
-        final TextView title;
-
-        ViewHolder(View view)
-        {
-            super(view);
-            title = view.findViewById(R.id.title);
-        }
-
-        public int getType()
-        {
-            return -1;
-        }
     }
 }

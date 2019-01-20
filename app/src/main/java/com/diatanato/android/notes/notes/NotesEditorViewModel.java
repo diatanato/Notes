@@ -5,18 +5,24 @@ import android.arch.lifecycle.ViewModelProvider.NewInstanceFactory;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.diatanato.android.notes.data.database.AppDatabase;
-import com.diatanato.android.notes.data.database.Note;
+import com.diatanato.android.notes.R;
+import com.diatanato.android.notes.database.AppDatabase;
+import com.diatanato.android.notes.database.entities.Note;
+import com.diatanato.android.notes.database.models.NoteWithCollectionName;
 
 public class NotesEditorViewModel extends ViewModel
 {
     public Note note;
+    public String collection;
 
     private NotesEditorViewModel(Context context, Integer id)
     {
         if (id > 0)
         {
-            note = AppDatabase.getInstance(context).getNoteDao().get(id);
+            NoteWithCollectionName data = AppDatabase.getInstance(context).getNoteDao().getNoteWithCollection(id);
+
+            note = data.note;
+            collection = data.collectionName;
         }
         if (note == null)
         {
